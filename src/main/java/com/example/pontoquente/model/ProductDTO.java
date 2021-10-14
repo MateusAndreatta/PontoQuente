@@ -1,4 +1,4 @@
-package com.example.pontoquente.domain.model;
+package com.example.pontoquente.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,9 +1,9 @@
-package com.example.pontoquente.domain.model;
+package com.example.pontoquente.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,23 +16,26 @@ import java.util.List;
 @Setter
 public class Product {
 
+    // TODO: Ver questão do request especificar o id do produto
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     public String site_id;
     public String title;
-    public int id_integracao;
+    public long id_integracao;
     public String subtitle;
-    public int seller_id;
-    public int price;
-    public int base_price;
-    public int original_price;
+    @JsonProperty("seller_id")
+    public long sellerId;
+    public Float price;
+    public Float base_price;
+    public Float original_price;
     public String currency_id;
     public int initial_quantity;
     public int available_quantity;
     public Date start_time;
     public Date stop_time;
+    @Column(name="condicao")
     public String condition;
     public String permalink;
 
@@ -41,7 +44,7 @@ public class Product {
 
     public String seller_contact;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<Attribute> attributes;
 
 }

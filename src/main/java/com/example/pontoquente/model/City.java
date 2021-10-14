@@ -1,5 +1,4 @@
-package com.example.pontoquente.domain.model;
-
+package com.example.pontoquente.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,16 +13,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SellerAddress {
+public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @OneToOne
-    public City city;
-    @OneToOne
-    public State state;
-    @OneToOne
-    public Country country;
-
+    private String id;
+    public String name;
 }

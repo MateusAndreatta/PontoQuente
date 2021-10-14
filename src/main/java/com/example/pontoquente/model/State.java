@@ -1,4 +1,4 @@
-package com.example.pontoquente.domain.model;
+package com.example.pontoquente.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,8 +18,7 @@ import javax.persistence.Id;
 public class State {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
     public String name;
 
 }

@@ -1,22 +1,27 @@
-package com.example.pontoquente.domain.model;
+package com.example.pontoquente.model;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class City {
+public class SellerAddress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    public String name;
+    @OneToOne
+    public City city;
+    @OneToOne
+    public State state;
+    @OneToOne
+    public Country country;
+
 }

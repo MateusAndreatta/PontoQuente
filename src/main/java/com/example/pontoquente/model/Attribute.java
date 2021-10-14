@@ -1,13 +1,11 @@
-package com.example.pontoquente.domain.model;
+package com.example.pontoquente.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -19,6 +17,8 @@ public class Attribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    //TODO Discutir com a turma sobre alteração dessa estrutura
+    private String type;
     public String value_name;
 
 }
