@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class Product {
     // TODO: Ver questão do request especificar o id do produto
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long product_id;
 
     public String site_id;
     public String title;
@@ -44,7 +45,7 @@ public class Product {
 
     public String seller_contact;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    public List<Attribute> attributes;
+    @OneToMany
+    public Set<Attribute> attributes;
 
 }

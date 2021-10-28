@@ -17,7 +17,6 @@ public class Attribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    //TODO Discutir com a turma sobre alteração dessa estrutura
     private String type;
     public String value_name;
 

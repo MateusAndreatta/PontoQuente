@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -32,11 +30,11 @@ public class ProductController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<Product> update(@RequestBody Product product) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> update(@RequestBody Product product,  @PathVariable Integer id) {
         try {
-            Product newProduct = service.update(product);
-            return ResponseEntity.ok(newProduct);
+            Product updatedProduct = service.update(id, product);
+            return ResponseEntity.ok(updatedProduct);
         }
         catch (Exception exception) {
             System.out.println("Erro ao atualizar o produto: " + exception.getMessage());
