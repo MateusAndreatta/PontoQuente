@@ -2,6 +2,7 @@ package com.example.pontoquente.controller;
 
 
 import com.example.pontoquente.model.Product;
+import com.example.pontoquente.model.ProductResponse;
 import com.example.pontoquente.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +36,9 @@ public class ProductController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<List<Product>> getProducts() {
+    public ResponseEntity<List<ProductResponse>> getProducts() {
         try {
-            List<Product> productList = service.getProducts();
+            List<ProductResponse> productList = service.getProducts();
             return ResponseEntity.ok(productList);
         }
         catch (Exception exception) {

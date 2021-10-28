@@ -17,7 +17,6 @@ import java.util.Set;
 @Setter
 public class Product {
 
-    // TODO: Ver questão do request especificar o id do produto
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long product_id;

@@ -2,9 +2,9 @@ package com.example.pontoquente.service;
 
 import com.example.pontoquente.model.Attribute;
 import com.example.pontoquente.model.Product;
+import com.example.pontoquente.model.ProductResponse;
 import com.example.pontoquente.model.SellerAddress;
 import com.example.pontoquente.repository.ProductRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -88,7 +88,7 @@ public class ProductService {
         repository.delete(productById);
     }
 
-    public List<Product> getProducts() {
-        return repository.findAll();
+    public List<ProductResponse> getProducts() {
+        return repository.findAllProductResponse();
     }
 }
