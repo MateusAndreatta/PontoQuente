@@ -79,4 +79,8 @@ public class ProductService {
         return repository.findById(id).orElseThrow( () -> new Exception("Produto não encontrado"));
     }
 
+    public void delete(long id) throws Exception {
+        Product productById = findProductById(id);
+        repository.delete(productById);
+    }
 }

@@ -42,4 +42,17 @@ public class ProductController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity delete(@PathVariable Integer id) {
+        try {
+            service.delete(id);
+            return ResponseEntity.noContent().build();
+        }
+        catch (Exception exception) {
+            System.out.println("Erro ao deletar o produto: " + exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }
