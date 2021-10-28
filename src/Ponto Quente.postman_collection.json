@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "08ee390d-d69d-4c83-a52e-5bfe2ea1c19b",
+		"name": "Ponto Quente",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"site_id\":\"MLB\",\r\n   \"title\":\"macbook m1\",\r\n   \"id_integracao\":123123,\r\n   \"subtitle\":null,\r\n   \"seller_id\":386261043,\r\n   \"price\":7299,\r\n   \"base_price\":7299,\r\n   \"original_price\":null,\r\n   \"currency_id\":\"BRL\",\r\n   \"initial_quantity\":5,\r\n   \"available_quantity\":2,\r\n   \"start_time\":\"2019-03-11T20:12:44.000Z\",\r\n   \"stop_time\":\"2039-03-06T04:00:00.000Z\",\r\n   \"condition\":\"new\",\r\n   \"permalink\":\"URLASERDADA/NOMESERVICO/PRODUTO/IDANUNCIO\",\r\n   \"seller_address\":{\r\n      \"city\":{\r\n         \"id\":\"TUxCQ1NFUmI1ZGQx\",\r\n         \"name\":\"Serra\"\r\n      },\r\n      \"state\":{\r\n         \"id\":\"BR-ES\",\r\n         \"name\":\"Espírito Santo\"\r\n      },\r\n      \"country\":{\r\n         \"id\":\"BR\",\r\n         \"name\":\"Brasil\"\r\n      },\r\n      \"id\":1017932319\r\n   },\r\n   \"seller_contact\":null,\r\n   \"attributes\":[\r\n      {\r\n         \"type\":\"BRAND\",\r\n         \"value_name\":\"APPLE\"\r\n      },\r\n      {\r\n         \"type\":\"EAN\",\r\n         \"value_name\":\"421421421421421\"\r\n      }\r\n   ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site_id\": \"AAA\",\r\n    \"title\": \"iphone 21\",\r\n    \"id_integracao\": 123123,\r\n    \"subtitle\": null,\r\n    \"price\": 7299.0,\r\n    \"base_price\": 7299.0,\r\n    \"original_price\": null,\r\n    \"currency_id\": \"BRL\",\r\n    \"initial_quantity\": 5,\r\n    \"available_quantity\": 2,\r\n    \"start_time\": \"2019-03-11T20:12:44.000+00:00\",\r\n    \"stop_time\": \"2039-03-06T04:00:00.000+00:00\",\r\n    \"condition\": \"new\",\r\n    \"permalink\": \"URLASERDADA/NOMESERVICO/PRODUTO/IDANUNCIO\",\r\n    \"seller_address\": {\r\n        \"city\": {\r\n            \"id\": \"TUxCQ1NFUmI1ZGQx\",\r\n            \"name\": \"Serra\"\r\n        },\r\n        \"state\": {\r\n            \"id\": \"BR-ES\",\r\n            \"name\": \"Espírito Santo\"\r\n        },\r\n        \"country\": {\r\n            \"id\": \"BR\",\r\n            \"name\": \"Brasil\"\r\n        }\r\n    },\r\n    \"seller_contact\": null,\r\n    \"attributes\": [\r\n        {\r\n            \"id\": 27,\r\n            \"type\": \"BRAND\",\r\n            \"value_name\": \"APPLE\"\r\n        },\r\n        {\r\n            \"id\": 28,\r\n            \"type\": \"EAN\",\r\n            \"value_name\": \"421421421421421\"\r\n        }\r\n    ],\r\n    \"seller_id\": 543534534\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

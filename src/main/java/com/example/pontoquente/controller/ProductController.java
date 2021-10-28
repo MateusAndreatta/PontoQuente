@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -26,6 +28,20 @@ public class ProductController {
         }
         catch (Exception exception) {
             System.out.println("Erro ao cadastrar o produto: " + exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<List<Product>> getProducts() {
+        try {
+            List<Product> productList = service.getProducts();
+            return ResponseEntity.ok(productList);
+        }
+        catch (Exception exception) {
+            System.out.println("Erro ao listar produtos: " + exception.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }

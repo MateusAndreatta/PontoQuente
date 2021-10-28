@@ -1,5 +1,6 @@
 package com.example.pontoquente.service;
 
+import com.example.pontoquente.model.Attribute;
 import com.example.pontoquente.model.Product;
 import com.example.pontoquente.model.SellerAddress;
 import com.example.pontoquente.repository.ProductRepository;
@@ -7,7 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -28,7 +31,8 @@ public class ProductService {
         if (sellerAddress == null){ // Não encontrado no banco, cadastra conforme chegou na requisição
             sellerAddress = sellerService.create(product.getSeller_address());
         }
-
+        Set<Attribute> attributos = attributeService.save(product.getAttributes());
+        product.setAttributes(attributos);
         product.setSeller_address(sellerAddress);
         return repository.save(product);
     }
@@ -82,5 +86,9 @@ public class ProductService {
     public void delete(long id) throws Exception {
         Product productById = findProductById(id);
         repository.delete(productById);
+    }
+
+    public List<Product> getProducts() {
+        return repository.findAll();
     }
 }
