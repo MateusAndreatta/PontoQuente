@@ -19,6 +19,9 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/").authenticated()
 
+                .antMatchers("/product/*").authenticated()
+                .antMatchers("/product").authenticated()
+
                 .antMatchers(HttpMethod.POST, "/login").authenticated()
                 .antMatchers("/api/*").authenticated()
                 .and()
