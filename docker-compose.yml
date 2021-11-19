@@ -1,0 +1,69 @@
+version: '3.7'
+
+services:
+  #############################################################
+  ######################### SERVICE ###########################
+  #############################################################
+
+  mariadb-service:
+    container_name: mariadb-service
+    image: mariadb
+    working_dir: /sql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "AquelaSenhaMarota"
+    ports:
+      - "3306:3306"
+    networks:
+      - ponto-network
+    volumes:
+      - ponto-storage:/var/lib/mysql
+      - ./sql:/sql
+
+  eureka-service:
+    image: 'carlosedba/eureka-service:latest'
+    networks:
+      - ponto-network
+    ports:
+      - "8761:8761"
+
+  gateway-service:
+    image: 'carlosedba/gateway-service:latest'
+    networks:
+      - ponto-network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-service
+    environment:
+      EUREKA_URL: gateway-service
+      EUREKA_DEFAULT_ZONE: 'http://eureka-service:8761/eureka'
+
+  ponto-quente-service:
+    image: 'carlosedba/ponto-quente-service:latest'
+    networks:
+      - ponto-network
+    ports:
+    - "8070:8070"
+    depends_on:
+      - eureka-service
+      - mariadb-service
+    environment:
+      EUREKA_URL: ponto-quente-service
+      EUREKA_DEFAULT_ZONE: 'http://eureka-service:8761/eureka'
+      MYSQL_HOST: mariadb-service
+      MYSQL_DATABASE: ponto-quente
+      MYSQL_USER: root
+      MYSQL_PASSWORD: AquelaSenhaMarota
+
+#############################################################
+######################### NETWORK ###########################
+#############################################################
+networks:
+  ponto-network:
+    external: true
+    driver: bridge
+
+volumes:
+  ponto-storage:
+    external: true
