@@ -23,8 +23,8 @@ Cada modulo tem o seu próprio `Dockerfile` e `build.sh` com o comando utilizado
 Caso vc esteja usando Windows e não queira usar o git bash, você pode abrir e rodar o conteudo de cada build.sh,
 por exemplo o customers:
 ```
-cd japao
-docker build --rm -t carlosedba/japao-service:latest .
+cd pontoquente
+docker build --rm -t carlosedba/ponto-quente-service:latest .
 ```
 
 
