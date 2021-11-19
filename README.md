@@ -24,7 +24,7 @@ Caso vc esteja usando Windows e não queira usar o git bash, você pode abrir e 
 por exemplo o customers:
 ```
 cd japao
-docker build --rm -t rodrigofujioka/japao-service:latest .
+docker build --rm -t carlosedba/japao-service:latest .
 ```
 
 
@@ -38,12 +38,8 @@ Proxy (Gateway)
 - ```cd gateway```
 - ```mvn spring-boot:run```
 
-API de Brasil
-- ```cd customers```
-- ```mvn spring-boot:run```
-
-API de Japao
-- ```cd products```
+API do PontoQuente
+- ```cd pontoquente```
 - ```mvn spring-boot:run```
 
 
@@ -57,8 +53,7 @@ Instances currently registered with Eureka
 ```
 
 Application	AMIs	Availability Zones	Status
-CUSTOMERS	n/a (1)	(1)	UP (1) - 192.168.11.247:customers:8060
-PRODUCTS	n/a (1)	(1)	UP (1) - 192.168.11.247:products:8070
+PONTOQUENTE	n/a (1)	(1)	UP (1) - 192.168.11.247:pontoquente:8070
 ZUUL	      n/a (1)	(1)	UP (1) - 192.168.11.247:zuul:8080
 ```
 
@@ -66,29 +61,28 @@ ZUUL	      n/a (1)	(1)	UP (1) - 192.168.11.247:zuul:8080
 
 #### Diretamente
 #### Sem Docker
-- http://localhost:8070/japao
-- http://localhost:8060/brasil
+- http://localhost:8070/pontoquente
 #### Com Docker
 As portas das api não estão expostas no docker compose, então caso queria acessar elas diretamente terá que modificar o
 docker compose, por exemplo o customer-service ficaria assim:
 
 ```
-japao-service:
-  image: 'rodrigofujioka/japao-service:latest'
+ponto-quente-service:
+  image: 'carlosedba/ponto-quente-service:latest'
   networks:
-    - fuji-network
+    - ponto-network
   ports:
-    - "8060:8060"
+  - "8070:8070"
   depends_on:
     - eureka-service
+    - mariadb-service
   environment:
-    EUREKA_URL: customer-service
+    EUREKA_URL: ponto-quente-service
     EUREKA_DEFAULT_ZONE: 'http://eureka-service:8761/eureka'
 ```
 
 #### Via Proxy (Gateway)
-- http://localhost:8080/japao
-- http://localhost:8080/brasil
+- http://localhost:8080/pontoquente
 
 
 O procedimento é o mesmo com ou sem docker
