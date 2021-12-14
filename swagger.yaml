@@ -1,0 +1,288 @@
+swagger: "2.0"
+info:
+  description: "Documentação da API do projeto de serviço de e-commerce da matéria de Desenvolvimento de Serviços Web Seguro."
+  version: "1.0.0"
+  title: "Ponto Quente"
+  contact:
+    email: "contato@pontoquente.com"
+host: "localhost:8070"
+basePath: "/"
+tags:
+- name: "Login"
+  description: "Realizar login no sistema"
+- name: "Product"
+  description: "Produtos da loja"
+schemes:
+- "http"
+paths:
+  /login:
+    post:
+      tags:
+      - "Login"
+      summary: "Recebe o token de acesso ao sistema "
+      description: "Endpoint utilizado para autenticação no Ponto Quente"
+      operationId: "login"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Os dados de acesso devem estar no corpo da requisição"
+        required: true
+        schema:
+          $ref: "#/definitions/login"
+      responses:
+        "204":
+          description: "O token é recebido pelo header da response"
+
+  /product:
+    get:
+      tags:
+      - "product"
+      summary: "Listar os produtos"
+      description: ""
+      operationId: "listProduct"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Product"
+      security:
+      - product_auth:
+        - "read:product"
+
+    post:
+      tags:
+      - "product"
+      summary: "Cadastrar um produto"
+      description: ""
+      operationId: "addProduto"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto do produto"
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        "200":
+          description: "Sucesso"
+        "400":
+          description: "Erro interno"
+      security:
+      - product_auth:
+        - "write:product"
+        - "read:product"
+
+    put:
+      tags:
+      - "product"
+      summary: "Atualizar um produto existente"
+      description: ""
+      operationId: "updateProduct"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "O objeto Produto precisa ser adicionado a base"
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        "400":
+          description: "ID fornecida inválida"
+        "404":
+          description: "Produto não encontrado"
+      security:
+      - product_auth:
+        - "write:product"
+        - "read:product"
+
+  /product/{product_id}: 
+    get:
+      tags:
+      - "product"
+      summary: "Retornar um produto por ID"
+      parameters:
+      - in: "path"
+        name: "product_id"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product"
+      security:
+      - product_auth:
+        - "read:product"
+
+    delete:
+      tags: 
+      - "product"
+      summary: "Deletar por Id"
+      description: ""
+      operationId: "deleteProduct"
+      produces: 
+      - "aplication/json"
+      parameters:
+      - name: "product_id"
+        in: "path"
+        description: "ID do produto a ser deletado"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400": 
+          description: "ID fornecida inválida"
+        "404":
+          description: "Produto não encontrado"
+      security:
+      - product_auth:
+        - "write:product"
+        - "read:product"
+
+securityDefinitions:
+  product_auth:
+    type: "oauth2"
+    authorizationUrl: "http://localhost:8070/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:product: "Criar e alterar product"
+      read:product: "Ler product"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+
+definitions:
+  login:
+    type: "object"
+    required:
+    - "username"
+    - "password"
+    properties:
+      username:
+        type: "string"
+        example: "servico"
+      password:
+        type: "string"
+        example: "servico"
+  Product:
+    type: "object"
+    required:
+    - "site_id"
+    - "title"
+    - "id_integracao"
+    - "seller_id"
+    - "price"
+    - "base_price"
+    - "currency_id"
+    - "initial_quantity"
+    - "available_quantity"
+    - "condition"
+    - "permalink"
+    properties:
+      site_id:
+        type: "string"
+      title:
+        type: "string"
+      id_integracao:
+        type: "integer"
+        format: "int64"
+      subtitle:
+        type: "string"
+      seller_id:
+        type: "integer"
+        format: "int64"
+      price:
+        type: "integer"
+        format: "int64"
+      base_price:
+        type: "integer"
+        format: "int64"
+      original_price:
+        type: "integer"
+        format: "int64"
+      currency_id:
+        type: "string"
+      initial_quantity:
+        type: "integer"
+        format: "int64"
+      available_quantity:
+        type: "integer"
+        format: "int64"
+      start_time:
+        type: "string"
+        format: "date-time"
+      stop_time:
+        type: "string"
+        format: "date-time"
+      condition: 
+        type: "string"
+        example: "new"
+      permalink: 
+        type: "string"
+        example: "URLASERDADA/NOMESERVICO/PRODUTO/IDANUNCIO"
+      seller_address: 
+        type: object
+        properties: 
+          city: 
+            type: object
+            properties: 
+              id: 
+                type: "string"
+                example: "TUxCQ1NFUmI1ZGQx"
+              name: 
+                type: "string"
+                example: "Serra"
+          state: 
+            type: object
+            properties: 
+              id: 
+                type: "string"
+                example: "BR-ES"
+              name: 
+                type: "string"
+                example: "Espírito Santo"
+          country: 
+            type: object
+            properties: 
+              id: 
+                type: "string"
+                example: "BR"
+              name: 
+                type: "string"
+                example: "Brasil"
+          id: 
+            type: integer
+            format: "integer"
+            example: 1017932319
+      seller_contact: 
+        type: "string"
+        format: nullable
+      attributes: 
+        type: array
+        items: 
+          type: object
+          properties: 
+            type: 
+              type: "string"
+              example: "BRAND"
+            value_name: 
+              type: "string"
+              example: "APPLE"
+    
+    xml:
+      name: "Product"

@@ -59,7 +59,7 @@ public class ProductService {
         productById.setStart_time(product.getStart_time());
         productById.setStop_time(product.getStop_time());
 
-        attributeService.deleteAll(productById.getAttributes());
+        //attributeService.deleteAll(productById.getAttributes());
 
         SellerAddress sellerAddress = findSellerAddressById(product.getSellerId());
         if (sellerAddress == null){ // Não encontrado no banco, cadastra conforme chegou na requisição
